@@ -3,6 +3,7 @@ package br.com.saloio.portifolio.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Portifolio {
+public class Portifolio implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

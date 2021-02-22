@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/portifolios")
 public class PortifolioController {
 
