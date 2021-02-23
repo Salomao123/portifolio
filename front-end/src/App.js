@@ -1,11 +1,14 @@
 import React from 'react';
 
-import Portifolio from './portifolio';
+import { RecoilRoot } from 'recoil';
+import Routes from './routes';
 
 class App extends React.Component {
   render(){
     return (
-      <Portifolio />
+      <RecoilRoot>
+        <Routes />
+      </RecoilRoot>
     )
   }
 }

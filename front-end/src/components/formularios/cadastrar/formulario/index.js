@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-
+import ApiConfig from '../../../../config/ApiConfig';
 import { 
     Form,
     Typography,
     Input,
     DatePicker,
-    Button
+  Button,
+    notification
 } from 'antd';
 
 const { Title } = Typography;
@@ -30,23 +31,27 @@ const Formulario = () => {
           author: autor,
           created_at: dtCriacao
         };
-
-        console.log(data);
-
-        //listar todos os portifólios: ok !
-        //await fetch('http://localhost:8080/portifolios/').then(response => response.json()).then(data => console.log(data))
-
-        await fetch('http://localhost:8080/portifolios/save', {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          method: "POST",
-          body: JSON.stringify(data)
-        }).then(response => response.json())
-        .then(data => console.log(data));
-
+       
+       await ApiConfig.post("/portifolios/save", data, {
+         headers: {
+           'Content-Type': 'application/json'
+         }
+       }).then(response => openNotificationWithIcon('success'))
+         .catch(error => openNotificationError('warning'));
     }
 
+    const openNotificationWithIcon = type => {
+      notification[type]({
+        message: 'Seu portifólio foi cadastrado com sucesso!'
+      });
+    };
+  
+  const openNotificationError = type => {
+    notification[type]({
+      message: 'Aconteceu um erro no servidor!'
+    });
+  };
+  
     const handleDatePicker = (date, dateString) => {
         setDtCriacao(dateString);
         setValueDates(date)
@@ -65,7 +70,7 @@ const Formulario = () => {
         <Typography>
             <Title level={4}>Cadastrar um novo portifólio </Title>
         </Typography>
-          
+
           <Form.Item label="Título do projeto">
             <Input name="nome" placeholder="Ex: GAECO - Combate ao Crime Organizado" onChange={(value) => setNome(value.target.value)} value={nome} />
           </Form.Item>
